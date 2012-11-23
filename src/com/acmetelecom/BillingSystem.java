@@ -4,6 +4,7 @@ import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.time.Clock;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,13 +13,18 @@ import java.util.*;
 public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
+    private Clock clock;
 
-    public void callInitiated(String caller, String callee) {
-        callLog.add(new CallStart(caller, callee));
+    public BillingSystem(Clock clock) {
+    	this.clock = clock;
+	}
+
+	public void callInitiated(String caller, String callee) {
+        callLog.add(new CallStart(caller, callee, clock));
     }
 
     public void callCompleted(String caller, String callee) {
-        callLog.add(new CallEnd(caller, callee));
+        callLog.add(new CallEnd(caller, callee, clock));
     }
 
     public void createCustomerBills() {
