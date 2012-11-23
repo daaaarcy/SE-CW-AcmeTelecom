@@ -2,8 +2,10 @@ import fit.ColumnFixture;
 
 public class GivenTheFollowingCalls extends ColumnFixture {
 
-    public String Tariff;
-    public int Number;
+    public int Caller;
+    public int Callee;
+    public String Start;
+    public String End;
 
 	@Override
 	public void reset() {
