@@ -16,7 +16,7 @@ public class BillingSystemTest {
 	@Test
 	public void testForInitialSpecification(){
 		FakeClock clock = new FakeClock(0);
-		BillingSystem billingSystem = new BillingSystem();
+		BillingSystem billingSystem = new BillingSystem(new TestClock(2012, 1, 1));
         billingSystem.callInitiated("447722113434", "447766511332");
         clock.incrementTimeBy(20);
         billingSystem.callCompleted("447722113434", "447766511332");
