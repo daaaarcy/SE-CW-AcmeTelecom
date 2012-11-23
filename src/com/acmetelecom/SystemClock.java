@@ -1,19 +1,20 @@
 /**
- * 
+ *
  */
 package com.acmetelecom;
 
-import time.Clock;
+import com.acmetelecom.time.Clock;
 
 /**
  * @author farhanrahman
- *
  */
-public class SystemClock implements Clock{
-	
-	@Override
-	public long currentTime() {
-		return System.currentTimeMillis();
-	}
+public class SystemClock implements Clock
+{
+
+    @Override
+    public long currentTime()
+    {
+        return System.currentTimeMillis();
+    }
 
 }
