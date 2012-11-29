@@ -5,6 +5,6 @@ import java.util.List;
 import com.acmetelecom.customer.*;
 
 public interface ICentralDatabase {
-	List<Customer> getCustomers();
-	Tariff tarriffFor(Customer customer);
+	List<ICustomer> getCustomers();
+	ITariff tarriffFor(ICustomer customer);
 }

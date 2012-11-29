@@ -1,13 +1,12 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.Customer;
 import com.acmetelecom.generator.IBillGenerator;
 
 import java.util.List;
 
 public class BillGenerator implements IBillGenerator<BillingSystem.LineItem>{
 
-    public void send(Customer customer, List<BillingSystem.LineItem> calls, String totalBill) {
+    public void send(ICustomer customer, List<BillingSystem.LineItem> calls, String totalBill) {
 
         Printer printer = HtmlPrinter.getInstance();
         printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());

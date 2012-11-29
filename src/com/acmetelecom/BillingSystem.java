@@ -7,10 +7,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.acmetelecom.customer.CentralCustomerDatabase;
-import com.acmetelecom.customer.CentralTariffDatabase;
-import com.acmetelecom.customer.Customer;
-import com.acmetelecom.customer.Tariff;
 import com.acmetelecom.generator.IBillGenerator;
 import com.acmetelecom.time.Clock;
 
@@ -57,14 +53,14 @@ public class BillingSystem {
     }
 
     public void createCustomerBills() {
-        List<Customer> customers = database.getCustomers();
-        for (Customer customer : customers) {
+        List<ICustomer> customers = database.getCustomers();
+        for (ICustomer customer : customers) {
             createBillFor(customer);
         }
         callLog.clear();
     }
 
-    private void createBillFor(Customer customer) {
+    private void createBillFor(ICustomer customer) {
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
         for (CallEvent callEvent : callLog) {
             if (callEvent.getCaller().equals(customer.getPhoneNumber())) {
@@ -78,7 +74,7 @@ public class BillingSystem {
         List<LineItem> items = new ArrayList<LineItem>();
 
         for (Call call : calls) {
-            Tariff tariff = database.tarriffFor(customer);
+            ITariff tariff = database.tarriffFor(customer);
 
             BigDecimal cost = calculateCost(call, tariff);
             totalBill = totalBill.add(cost);
