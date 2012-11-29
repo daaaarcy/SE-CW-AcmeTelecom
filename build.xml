@@ -1,6 +1,7 @@
 <project name="AcmeTelecom" default="test" basedir=".">
 	<property name="src"   value="src"/>
 	<property name="tests" value="test"/>
+	<property name="acceptance-tests" value="acceptance-tests"/>
 	<property name="build" value="build"/>
 	<property name="lib"   value="lib"/>
 	
@@ -17,7 +18,23 @@
 	  	<path refid="master-classpath" />
 	</path>
 	
-	<target name="test" description="Run the JUnit Tests" depends="Build">
+	<path id="compile.classpath.src">
+		<fileset dir="lib" />
+	</path>
+
+	<path id="compile.classpath.acceptance-tests">
+		<fileset dir="lib" />
+		<pathelement location="src.jar" />
+	</path>
+
+	<path id="run.classpath.acceptance-tests">
+		<pathelement location="acceptance-tests.jar" />
+		<path refid="compile.classpath.acceptance-tests" />
+	</path>
+	
+	<target name="test" description="Run all tests" depends="unittest, acceptancetest" />
+	
+	<target name="unittest" description="Run the JUnit Tests" depends="build">
 		<echo>Running Tests...</echo>
 	  	<junit failureproperty="junit.failure">
 	  		<classpath refid="test-classpath" />
@@ -32,8 +49,14 @@
 		<fail if="junit.failure" message="Unit test(s) failed."/>
 	</target>
 	
+	<target name="acceptancetest" description='Run the FIT tests' depends="jars">
+		<java classname="fitlibrary.runner.FolderRunner" classpathref="run.classpath.acceptance-tests" failonerror='true'>
+			<arg value="fit" />
+			<arg value="reports" />
+		</java>
+	</target>
 	
-	<target name="Build"  description="Builds the project" depends="Clean">
+	<target name="build"  description="Builds the project" depends="clean">
 		<echo>Building...</echo>
 		<mkdir dir="${build}"/>
 		<javac srcdir="${src}" destdir="${build}">
@@ -45,9 +68,31 @@
 		<!--<javac srcdir="${tests}" destdir="${tests}"/>-->
 	</target>
 	
-	<target name="Clean" description="Removes previous build">
-	  <delete verbose="true">
-	    <fileset dir="${build}"/>
-	  </delete>
+	<target name="clean" description="Removes previous build">
+	  	<delete verbose="true">
+	    	<fileset dir="${build}"/>
+	  	</delete>
+		<delete dir="build" />
+		<delete dir="reports" />
 	</target>
+	
+	<target name="jars">
+		<compile-module name="${src}" />
+	    <compile-module name="${acceptance-tests}" />
+	</target>	
+	
+	<macrodef name="compile-module">
+		<attribute name="name" />
+
+		<sequential>
+			<mkdir dir="build/classes/@{name}" />
+
+			<javac srcdir="@{name}" destdir="build/classes/@{name}" debug="${debug}" classpathref="compile.classpath.@{name}" />
+
+			<jar jarfile="@{name}.jar">
+				<fileset dir="build/classes/@{name}" />
+				<fileset dir="@{name}" />
+			</jar>
+		</sequential>
+	</macrodef>
 </project>

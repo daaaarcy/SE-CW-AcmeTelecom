@@ -1,3 +1,5 @@
+import FakeClasses.FakePrinter;
+
 import com.acmetelecom.Call;
 
 import java.util.ArrayList;
@@ -12,7 +14,8 @@ import java.util.List;
  */
 public class SystemUnderTest {
 
-    public static List<Call> Calls = new ArrayList<Call>();
+    public static final List<Call> Calls = new ArrayList<Call>();
+    public static final FakePrinter printer = new FakePrinter();
 
 
 }
