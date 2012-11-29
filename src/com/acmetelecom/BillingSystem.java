@@ -25,8 +25,7 @@ public class BillingSystem {
      * Default constructor that initialises the variables.
      */
     public BillingSystem(){
-    	this.clock = new SystemClock();
-    	this.generator = new BillGenerator();
+    	this(new SystemClock(), new BillGenerator());
     }
     
     /**
@@ -35,8 +34,7 @@ public class BillingSystem {
      * @param clock
      */
     public BillingSystem(Clock clock){
-    	this.clock = clock;
-    	this.generator = new BillGenerator();
+    	this(clock, new BillGenerator());
     }
     
     /**
