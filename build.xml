@@ -1,4 +1,4 @@
-<project name="AcmeTelecom" default="Test" basedir=".">
+<project name="AcmeTelecom" default="test" basedir=".">
 	<property name="src"   value="src"/>
 	<property name="tests" value="test"/>
 	<property name="build" value="build"/>
@@ -17,9 +17,9 @@
 	  	<path refid="master-classpath" />
 	</path>
 	
-	<target name="Test" description="Run the JUnit Tests" depends="Build">
+	<target name="test" description="Run the JUnit Tests" depends="Build">
 		<echo>Running Tests...</echo>
-	  	<junit>
+	  	<junit failureproperty="junit.failure">
 	  		<classpath refid="test-classpath" />
 	  		<formatter type="brief" usefile="false" />
 	  		<batchtest>
@@ -29,6 +29,7 @@
 	  		    </fileset>
 			</batchtest>
 	  	</junit>
+		<fail if="junit.failure" message="Unit test(s) failed."/>
 	</target>
 	
 	

@@ -6,7 +6,8 @@
 *.exe
 *.o
 *.so
-
+# these files should be auto generated
+reports/*
 #idea files#
 .idea/*
 *.iml
