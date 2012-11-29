@@ -15,12 +15,12 @@ public class FakeTariff implements ITariff {
 	
 	@Override
 	public BigDecimal offPeakRate() {
-		return peakRate;
+		return offPeakRate;
 	}
 
 	@Override
 	public BigDecimal peakRate() {
-		return offPeakRate;
+		return peakRate;
 	}
 	
 }

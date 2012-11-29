@@ -14,12 +14,12 @@ public class FakePrinter implements Printer {
 	@Override
 	public void printItem(String time, String callee, String duration,
 			String cost) {
-		output.append("Call to " + callee + " at " + time + " for " +  duration + " = £" + cost + "\n");
+		output.append("Call to " + callee + " at " + time.split("\\s")[1] + " for " +  duration + " = " + cost + "\n");
 	}
 
 	@Override
 	public void printTotal(String total) {
-		output.append("Total Charge = £" + total + "\n");
+		output.append("Total Charge = " + total + "\n");
 	}
 	
 	public String output() {
