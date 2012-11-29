@@ -6,9 +6,15 @@ import java.util.Calendar;
 
 public class DaytimePeakPeriod
 {
+    // Start hour of peak period.
     public final static int start = 7;
+
+    // End hour of peak period.
     public final static int end = 19;
 
+    /**
+     * Returns true if give time if off-peak, otherwise false.
+     */
     public static boolean isOffPeak(DateTime time)
     {
         Calendar calendar = Calendar.getInstance();
@@ -18,7 +24,7 @@ public class DaytimePeakPeriod
     }
 
     /**
-     * Returns duration of off-peak in seconds.
+     * Returns duration of peak period in seconds.
      */
     public static int peakDurationInSec()
     {
