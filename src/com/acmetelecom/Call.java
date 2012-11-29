@@ -31,4 +31,12 @@ public class Call {
     public Date endTime() {
         return new Date(end.time());
     }
+    
+    public final CallEvent getStart(){
+    	return start;
+    }
+    
+    public final CallEvent getEnd(){
+    	return end;
+    } 
 }
