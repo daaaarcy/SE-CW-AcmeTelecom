@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.database;
 
 import com.acmetelecom.customer.Customer;
 

@@ -1,5 +1,6 @@
 package com.acmetelecom;
 
+import com.acmetelecom.database.ICustomer;
 import com.acmetelecom.generator.IBillGenerator;
 
 import java.util.List;

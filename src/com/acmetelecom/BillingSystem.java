@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.acmetelecom.database.CentralDatabase;
+import com.acmetelecom.database.ICentralDatabase;
+import com.acmetelecom.database.ICustomer;
+import com.acmetelecom.database.ITariff;
 import com.acmetelecom.generator.IBillGenerator;
 import com.acmetelecom.time.Clock;
 
