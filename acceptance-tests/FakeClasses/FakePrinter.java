@@ -3,21 +3,27 @@ import com.acmetelecom.Printer;
 
 
 public class FakePrinter implements Printer {
+	
+	private StringBuilder output = new StringBuilder();
 
 	@Override
 	public void printHeading(String name, String phoneNumber, String pricePlan) {
-		System.out.println("Customer: " + phoneNumber);
+		output.append("Customer: " + phoneNumber + "\n");
 	}
 
 	@Override
 	public void printItem(String time, String callee, String duration,
 			String cost) {
-		System.out.println("Call to " + callee + " at " + time + " for " +  duration + " = " + cost);
+		output.append("Call to " + callee + " at " + time + " for " +  duration + " = " + cost + "\n");
 	}
 
 	@Override
 	public void printTotal(String total) {
-		System.out.println("Total Charge = " + total);
+		output.append("Total Charge = " + total + "\n");
+	}
+	
+	public String output() {
+		return output.toString();
 	}
 
 }
