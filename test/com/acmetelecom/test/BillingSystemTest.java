@@ -3,8 +3,6 @@
  */
 package com.acmetelecom.test;
 
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
 
 import com.acmetelecom.BillingSystem;
@@ -28,7 +26,6 @@ public class BillingSystemTest {
         billingSystem.callInitiated("447777765432", "447711111111");
         clock.incrementTimeBy(60);
         billingSystem.callCompleted("447777765432", "447711111111");
-        billingSystem.createCustomerBills();	
-        fail("test failure for fit");
+        billingSystem.createCustomerBills();		
 	}
 }
