@@ -18,7 +18,7 @@ public class GivenTheFollowingTariff extends ColumnFixture {
 	}
 
     @Override
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     public Object parse(String s, Class type) throws Exception {
         if (type == BigDecimal.class) {
             return new BigDecimal(s);

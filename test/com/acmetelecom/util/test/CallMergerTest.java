@@ -16,27 +16,17 @@ import com.acmetelecom.test.TestClock;
 
 public class CallMergerTest {
 	
+	
 	@Test
-	public void testCallMerger(){
+	public void testCallMerger() {
 		TestClock clock = new TestClock(2012, 1, 1);
 		List<CallEvent> customerEvents = new ArrayList<CallEvent>();
 		prepareCustomerEvents(customerEvents, clock);		
         
         List<Call> calls = mergeCallEvents(customerEvents);
         
-        for(Call call : calls){
-        	if (customerEvents.contains(call.getStart())){
-        		customerEvents.remove(call.getStart());
-        	}
-        	
-        	if (customerEvents.contains(call.getEnd())){
-        		customerEvents.remove(call.getStart());
-        	}
-        }
-        for (CallEvent callEvent : customerEvents){
-        	System.out.println(callEvent.getCaller());
-        }
-        assertTrue(customerEvents.isEmpty());
+        assertTrue(customerEvents.size()%2 == 0);
+        assertTrue(calls.size() == customerEvents.size() / 2);
 	}
 	
 	private void prepareCustomerEvents(List<CallEvent> customerEvents, TestClock clock){
