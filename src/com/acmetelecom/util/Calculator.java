@@ -67,7 +67,7 @@ public class Calculator
 
         BigDecimal peakCost = new BigDecimal(peakCallDuration).multiply(tariff.peakRate());
         BigDecimal offPeakCost = new BigDecimal(totalCallDuration - peakCallDuration).multiply(tariff.offPeakRate());
-        BigDecimal cost =  peakCost.add(offPeakCost).setScale(0, RoundingMode.HALF_UP);
+        BigDecimal cost = peakCost.add(offPeakCost).setScale(0, RoundingMode.HALF_UP);
 
         return cost;
     }
