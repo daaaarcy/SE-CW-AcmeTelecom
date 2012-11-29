@@ -25,5 +25,9 @@ public class FakePrinter implements Printer {
 	public String output() {
 		return output.toString();
 	}
+	
+	public void clearOutput() {
+		output = new StringBuilder();
+	}
 
 }

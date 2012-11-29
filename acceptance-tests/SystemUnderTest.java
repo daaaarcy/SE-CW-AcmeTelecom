@@ -22,7 +22,7 @@ public class SystemUnderTest {
     private static final int fakemonth = 6;
     private static final int fakeyear = 2012;
 
-	public static final TestClock clock = new TestClock(fakeday, fakemonth, fakeyear);
+	public static final TestClock clock = new TestClock(fakeyear, fakemonth, fakeday);
     public static final FakePrinter printer = new FakePrinter();
     public static final FakeDatabase db = new FakeDatabase();
     public static final BillingSystem billingSystem = new BillingSystem(clock, new BillGenerator(printer), db);

@@ -8,12 +8,20 @@ public class GivenTheFollowingCalls extends ColumnFixture {
     public String Duration;
 
 	@Override
+	public void reset() throws Exception {
+		Caller = null;
+		Callee = null;
+		Start = null;
+		Duration = null;
+	}
+    
+	@Override
 	public void execute() {
-        addCall(Caller,Callee,Start,Duration);
+		addCall(Caller,Callee,Start,Duration);
 	}
 
     public void addCall(String caller, String callee, String start, String duration){
-    	String startString[] = start.split(":");
+    	String startString[] = start.trim().split(":");
     	String durationString[] = duration.split(":");
     	
     	SystemUnderTest.clock.setTime(Integer.parseInt(startString[0]),

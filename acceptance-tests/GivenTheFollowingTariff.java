@@ -10,6 +10,13 @@ public class GivenTheFollowingTariff extends ColumnFixture {
     public BigDecimal OnPeakPrice;
 	
 	@Override
+	public void reset() throws Exception {
+		Name = null;
+		OffPeakPrice = null;
+		OnPeakPrice = null;
+	}
+
+	@Override
 	public void execute() {
 		SystemUnderTest.tariffMap.put(Name, new FakeTariff(OnPeakPrice, OffPeakPrice));
 	}
