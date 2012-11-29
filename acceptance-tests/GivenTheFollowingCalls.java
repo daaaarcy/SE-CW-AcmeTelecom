@@ -16,10 +16,6 @@ public class GivenTheFollowingCalls extends ColumnFixture {
 	
 	@Override
 	public void execute() {
-        public CallStart(String caller, String callee, Clock clock) {
-            super(caller, callee, clock.currentTime());
-        }
-        CallStart s =
-        SystemUnderTest.Calls.add(new Call(new CallStart()))
+
 	}
 }
