@@ -2,6 +2,8 @@ package com.acmetelecom.test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.acmetelecom.time.Clock;
 
@@ -29,10 +31,21 @@ public class TestClock implements Clock {
 		return cal.getTimeInMillis();
 	}
 	
+	public String toString() {
+		String date = cal.getTime().toString();
+		Pattern pattern = Pattern.compile("\\d\\d:\\d\\d:\\d\\d");
+		Matcher matcher = pattern.matcher(date);
+		return matcher.group();
+	}
+	
 	public void incrementTime(int hour, int min, int sec) {
 		cal.add(Calendar.HOUR_OF_DAY, hour);
 		cal.add(Calendar.MINUTE, min);
 		cal.add(Calendar.SECOND, sec);
+	}
+	
+	public void setTime(int hour, int min, int sec) {
+		cal = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), hour, min, sec);
 	}
 
 }

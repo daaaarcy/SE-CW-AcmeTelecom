@@ -8,6 +8,7 @@ import java.util.List;
 import com.acmetelecom.BillingSystem;
 import com.acmetelecom.BillingSystem.LineItem;
 import com.acmetelecom.customer.Customer;
+import com.acmetelecom.database.ICustomer;
 import com.acmetelecom.generator.IBillGenerator;
 
 /**
@@ -19,7 +20,7 @@ public class FakeBillGenerator implements IBillGenerator<BillingSystem.LineItem>
 	private boolean sendPassed = false;
 
 	@Override
-	public void send(Customer customer, List<LineItem> calls, String totalBill) {	
+	public void send(ICustomer customer, List<LineItem> calls, String totalBill) {	
         sendPassed = true;
 	}
 	

@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 import com.acmetelecom.Call;
 import com.acmetelecom.DaytimePeakPeriod;
-import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.database.ITariff;
 
 public class Calculator {
 	/**
@@ -14,7 +14,7 @@ public class Calculator {
 	 * @param tariff
 	 * @return
 	 */
-	public static BigDecimal calculateCost(Call call, Tariff tariff) {
+	public static BigDecimal calculateCost(Call call, ITariff tariff) {
 		BigDecimal cost;
 
 		DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();

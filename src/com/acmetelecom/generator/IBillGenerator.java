@@ -5,7 +5,7 @@ package com.acmetelecom.generator;
 
 import java.util.List;
 
-import com.acmetelecom.customer.Customer;
+import com.acmetelecom.database.ICustomer;
 
 /**
  * Generic bill generator taking generic type
@@ -21,5 +21,5 @@ public interface IBillGenerator <ListContent> {
 	 * @param calls : this is a list of ListContent types
 	 * @param totalBill
 	 */
-	public void send(Customer customer, List<ListContent> calls, String totalBill);
+	public void send(ICustomer customer, List<ListContent> calls, String totalBill);
 }
