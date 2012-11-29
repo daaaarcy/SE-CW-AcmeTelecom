@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.acmetelecom.BillingSystem;
 import com.acmetelecom.BillingSystem.LineItem;
-import com.acmetelecom.customer.Customer;
 import com.acmetelecom.database.ICustomer;
 import com.acmetelecom.generator.IBillGenerator;
 

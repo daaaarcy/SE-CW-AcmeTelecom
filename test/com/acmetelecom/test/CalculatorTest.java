@@ -5,7 +5,7 @@ package com.acmetelecom.test;
 
 import static com.acmetelecom.util.Calculator.calculateCost;
 import static com.acmetelecom.util.CallMerger.mergeCallEvents;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +16,17 @@ import com.acmetelecom.Call;
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.CallEvent;
 import com.acmetelecom.CallStart;
-import com.acmetelecom.CentralDatabase;
-import com.acmetelecom.customer.Customer;
-import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.database.CentralDatabase;
+import com.acmetelecom.database.ICustomer;
+import com.acmetelecom.database.ITariff;
 
 /**
  * @author farhanrahman
  *
  */
 public class CalculatorTest {
-
+	private static final double EPSILON = 0.001;
+	
 	@Test
 	public void testForCalls0(){
 		TestClock clock = new TestClock(2012,1,1);
@@ -38,15 +39,16 @@ public class CalculatorTest {
         customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
         
         CentralDatabase db = new CentralDatabase();
-        List<Customer> customers = db.getCustomers();
+        List<ICustomer> customers = db.getCustomers();
         List<Call> calls = mergeCallEvents(customerEvents);
         
-        for(Customer customer : customers){
+        for(ICustomer customer : customers){
         	if(customer.getPhoneNumber().equalsIgnoreCase("447777765432")){
-        		Tariff tariff = db.tarriffFor(customer);
+        		ITariff tariff = db.tarriffFor(customer);
         		double cost = calculateCost(calls.get(0), tariff).doubleValue();
         		double expected = 2.0*tariff.offPeakRate().doubleValue() + 12.0*tariff.peakRate().doubleValue();
-        		assertTrue(cost == expected);
+        		
+        		assertEquals(expected, cost, EPSILON);
         		break;
         	}
         }

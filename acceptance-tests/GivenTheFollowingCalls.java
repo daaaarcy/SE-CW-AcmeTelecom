@@ -6,7 +6,7 @@ public class GivenTheFollowingCalls extends ColumnFixture {
     public String Callee;
     public String Start;
     public String Duration;
-	
+
 	@Override
 	public void execute() {
         addCall(Caller,Callee,Start,Duration);

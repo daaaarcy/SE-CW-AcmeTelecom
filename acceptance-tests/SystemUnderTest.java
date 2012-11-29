@@ -1,5 +1,10 @@
 
+import java.util.HashMap;
+import java.util.Map;
+
+import FakeClasses.FakeDatabase;
 import FakeClasses.FakePrinter;
+import FakeClasses.FakeTariff;
 
 import com.acmetelecom.BillGenerator;
 import com.acmetelecom.BillingSystem;
@@ -19,6 +24,9 @@ public class SystemUnderTest {
 
 	public static final TestClock clock = new TestClock(fakeday, fakemonth, fakeyear);
     public static final FakePrinter printer = new FakePrinter();
-    public static final BillingSystem billingSystem = new BillingSystem(clock, new BillGenerator(printer));
+    public static final FakeDatabase db = new FakeDatabase();
+    public static final BillingSystem billingSystem = new BillingSystem(clock, new BillGenerator(printer), db);
+    
+    public static final Map<String, FakeTariff> tariffMap = new HashMap<String, FakeTariff>();
 
 }

@@ -1,20 +1,17 @@
-import fit.ColumnFixture;
-
 import java.math.BigDecimal;
+
+import FakeClasses.FakeTariff;
+import fit.ColumnFixture;
 
 public class GivenTheFollowingTariff extends ColumnFixture {
 
     public String Name;
     public BigDecimal OffPeakPrice;
     public BigDecimal OnPeakPrice;
-
-	@Override
-	public void reset() {
-
-	}
 	
 	@Override
 	public void execute() {
+		SystemUnderTest.tariffMap.put(Name, new FakeTariff(OnPeakPrice, OffPeakPrice));
 	}
 
     @Override
