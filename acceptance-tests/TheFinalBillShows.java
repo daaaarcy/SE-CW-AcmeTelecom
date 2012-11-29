@@ -22,7 +22,8 @@ public class TheFinalBillShows extends RowFixture {
 	
 	@Override
 	public Object[] query() throws Exception {
-
+		SystemUnderTest.billingSystem.createCustomerBills();
+		
 		List<Row> rows = new ArrayList<Row>();
 		for (String line : SystemUnderTest.printer.output().split("\n")) {
 			rows.add(new Row(rows.size() + 1, line));
