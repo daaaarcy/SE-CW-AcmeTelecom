@@ -5,7 +5,6 @@ package com.acmetelecom.generator;
 
 import java.util.List;
 
-import com.acmetelecom.customer.Customer;
 import com.acmetelecom.database.ICustomer;
 
 /**

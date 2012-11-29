@@ -1,33 +1,29 @@
-import com.acmetelecom.Call;
-import com.acmetelecom.CallEnd;
-import com.acmetelecom.CallStart;
-import com.acmetelecom.test.TestClock;
-
 import fit.ColumnFixture;
 
 public class GivenTheFollowingCalls extends ColumnFixture {
-	private static final int fakeday = 15;
-    private static final int fakemonth = 6;
-    private static final int fakeyear = 2012;
 
     public String Caller;
     public String Callee;
     public String Start;
-    public String End;
-
-	@Override
-	public void reset() {
-
-	}
+    public String Duration;
 	
 	@Override
 	public void execute() {
-        addCall(Caller,Callee,Start,End);
+        addCall(Caller,Callee,Start,Duration);
 	}
 
-    public void addCall(String caller, String callee, String start, String end){
-        CallStart callStart = new CallStart(caller, callee, new TestClock(fakeyear, fakemonth, fakeday, start));
-        CallEnd callEnd = new CallEnd(caller, callee, new TestClock(fakeyear, fakemonth, fakeday, end));
-        SystemUnderTest.Calls.add(new Call(callStart,callEnd));
+    public void addCall(String caller, String callee, String start, String duration){
+    	String startString[] = start.split(":");
+    	String durationString[] = duration.split(":");
+    	
+    	SystemUnderTest.clock.setTime(Integer.parseInt(startString[0]),
+    								  Integer.parseInt(startString[1]),
+    								  Integer.parseInt(startString[2]));
+    	SystemUnderTest.billingSystem.callInitiated(caller, callee);
+    	
+    	SystemUnderTest.clock.incrementTime(Integer.parseInt(durationString[0]),
+    										Integer.parseInt(durationString[1]),
+    										Integer.parseInt(durationString[2]));
+    	SystemUnderTest.billingSystem.callCompleted(caller, callee);
     }
 }
