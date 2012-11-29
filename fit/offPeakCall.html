@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link href="files/css/fitnesse.css" rel="stylesheet" type="text/css" />
-    <title>offPeakCall</title>
+    <title>Off Peak Call</title>
 </head>
 <body>
 <h1>Off Peak Call</h1>
 <p>These are the available Tariffs, price is per second</p>
 <table border="0">
     <tr>
-        <td>Given the following Tariff</td>
+        <td colspan="3">Given the following Tariff</td>
     </tr>
     <tr>
         <td>Name</td><td>Off Peak Price</td><td>On Peak Price</td>
@@ -23,15 +23,12 @@
     <tr>
         <td>Premium</td><td>0.04</td><td>0.09</td>
     </tr>
-    <tr>
-        <td>Ultimate</td><td>0.05</td><td>0.10</td>
-    </tr>
 
 </table>
 <p>These are the customers given</p>
 <table border="0">
     <tr>
-        <td>Given the following Customers</td>
+        <td colspan="2">Given the following Customers</td>
     </tr>
     <tr>
         <td>Number</td><td>Tariff</td>
@@ -45,27 +42,19 @@
         <td>5678</td><td>Premium</td>
     </tr>
 
-    <tr>
-        <td>9101</td><td>Super Saver</td>
-    </tr>
-
-    <tr>
-        <td>1121</td><td>Ultimate</td>
-    </tr>
-
 </table>
 
 <p>The are the calls made</p>
 <table border="0">
     <tr>
-        <td>Given the following Calls</td>
+        <td colspan="4">Given the following Calls</td>
     </tr>
     <tr>
         <td>Caller</td><td>Callee</td><td>Start</td><td>End</td>
     </tr>
 
     <tr>
-        <td>1234</td><td>5678</td><td>13:00:00</td><td>13:30:00</td>
+        <td>1234</td><td>5678</td><td>20:00:00</td><td>20:30:00</td>
     </tr>
 </table>
 <p>This is the final bill produced</p>
@@ -81,19 +70,23 @@
 
     <tr>
         <td>1</td>
-        <td>Charge = 6.80</td>
+        <td>Customer: 1234</td>
     </tr>
     <tr>
         <td>2</td>
-        <td>Charge = 6.80</td>
+        <td>Off-Peak Call = £0.90</td>
     </tr>
     <tr>
         <td>3</td>
-        <td>Charge = 6.80</td>
+        <td>Total Charge = £0.90</td>
     </tr>
     <tr>
         <td>4</td>
-        <td>Charge = 6.80</td>
+        <td>Customer: 5678</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Total Charge = £0.00</td>
     </tr>
 </table>
 </body>
