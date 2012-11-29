@@ -1,22 +1,52 @@
 package com.acmetelecom;
 
+import static com.acmetelecom.util.Calculator.calculateCost;
+import static com.acmetelecom.util.CallMerger.mergeCallEvents;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.generator.IBillGenerator;
 import com.acmetelecom.time.Clock;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
 
 public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
     private Clock clock;
+    private IBillGenerator<LineItem> generator;
 
-    public BillingSystem(Clock clock) {
+    /**
+     * Default constructor that initialises the variables.
+     */
+    public BillingSystem(){
+    	this.clock = new SystemClock();
+    	this.generator = new BillGenerator();
+    }
+    
+    /**
+     * Temporary constructor to make other code passing in Clock
+     * as a constructor parameter to work.
+     * @param clock
+     */
+    public BillingSystem(Clock clock){
     	this.clock = clock;
+    	this.generator = new BillGenerator();
+    }
+    
+    /**
+     * 
+     * @param clock
+     * @param generator
+     */
+    public BillingSystem(Clock clock, IBillGenerator<LineItem> generator) {
+    	this.clock = clock;
+    	this.generator = generator;
 	}
 
 	public void callInitiated(String caller, String callee) {
@@ -43,18 +73,7 @@ public class BillingSystem {
             }
         }
 
-        List<Call> calls = new ArrayList<Call>();
-
-        CallEvent start = null;
-        for (CallEvent event : customerEvents) {
-            if (event instanceof CallStart) {
-                start = event;
-            }
-            if (event instanceof CallEnd && start != null) {
-                calls.add(new Call(start, event));
-                start = null;
-            }
-        }
+        List<Call> calls = mergeCallEvents(customerEvents);
 
         BigDecimal totalBill = new BigDecimal(0);
         List<LineItem> items = new ArrayList<LineItem>();
@@ -63,25 +82,15 @@ public class BillingSystem {
 
             Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
 
-            BigDecimal cost;
-
-            DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
-            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
-            } else {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
-            }
-
-            cost = cost.setScale(0, RoundingMode.HALF_UP);
-            BigDecimal callCost = cost;
-            totalBill = totalBill.add(callCost);
-            items.add(new LineItem(call, callCost));
+            BigDecimal cost = calculateCost(call, tariff);
+            totalBill = totalBill.add(cost);
+            items.add(new LineItem(call, cost));
         }
 
-        new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
+        this.generator.send(customer, items, MoneyFormatter.penceToPounds(totalBill));
     }
 
-    static class LineItem {
+    public static class LineItem {
         private Call call;
         private BigDecimal callCost;
 
