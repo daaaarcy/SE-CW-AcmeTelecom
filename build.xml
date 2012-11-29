@@ -49,7 +49,6 @@
 	  		    </fileset>
 			</batchtest>
 	  	</junit>
-		
 	</target>
 	
 	<target name="acceptancetest" description='Run the FIT tests' depends="jars">
@@ -72,11 +71,8 @@
 	</target>
 	
 	<target name="clean" description="Removes previous build">
-	  	<delete verbose="true">
-	    	<fileset dir="${build}"/>
-	  	</delete>
-		<delete dir="build" />
-		<delete dir="reports" />
+		<delete quiet='true' dir="build" />
+		<delete quiet='true' dir="reports" />
 	</target>
 	
 	<target name="jars">
