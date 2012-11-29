@@ -8,6 +8,7 @@
 *.so
 # these files should be auto generated
 reports/*
+build/*
 #ide files#
 .idea/*
 *.iml
