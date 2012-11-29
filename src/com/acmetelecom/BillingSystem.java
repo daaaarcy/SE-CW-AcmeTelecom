@@ -7,12 +7,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.acmetelecom.customer.CentralCustomerDatabase;
-import com.acmetelecom.customer.CentralTariffDatabase;
-import com.acmetelecom.customer.Customer;
-import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.database.CentralDatabase;
+import com.acmetelecom.database.ICentralDatabase;
+import com.acmetelecom.database.ICustomer;
+import com.acmetelecom.database.ITariff;
 import com.acmetelecom.generator.IBillGenerator;
 import com.acmetelecom.time.Clock;
+
 
 
 public class BillingSystem {
@@ -20,13 +21,13 @@ public class BillingSystem {
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
     private Clock clock;
     private IBillGenerator<LineItem> generator;
+    private ICentralDatabase database;
 
     /**
      * Default constructor that initialises the variables.
      */
     public BillingSystem(){
-    	this.clock = new SystemClock();
-    	this.generator = new BillGenerator();
+    	this(new SystemClock(), new BillGenerator());
     }
     
     /**
@@ -35,18 +36,17 @@ public class BillingSystem {
      * @param clock
      */
     public BillingSystem(Clock clock){
-    	this.clock = clock;
-    	this.generator = new BillGenerator();
+    	this(clock, new BillGenerator(), new CentralDatabase());
     }
     
-    /**
-     * 
-     * @param clock
-     * @param generator
-     */
     public BillingSystem(Clock clock, IBillGenerator<LineItem> generator) {
+    	this(clock, generator, new CentralDatabase());
+    }
+
+    public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db) {
     	this.clock = clock;
     	this.generator = generator;
+    	this.database = db;
 	}
 
 	public void callInitiated(String caller, String callee) {
@@ -58,14 +58,14 @@ public class BillingSystem {
     }
 
     public void createCustomerBills() {
-        List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
-        for (Customer customer : customers) {
+        List<ICustomer> customers = database.getCustomers();
+        for (ICustomer customer : customers) {
             createBillFor(customer);
         }
         callLog.clear();
     }
 
-    private void createBillFor(Customer customer) {
+    private void createBillFor(ICustomer customer) {
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
         for (CallEvent callEvent : callLog) {
             if (callEvent.getCaller().equals(customer.getPhoneNumber())) {
@@ -79,8 +79,7 @@ public class BillingSystem {
         List<LineItem> items = new ArrayList<LineItem>();
 
         for (Call call : calls) {
-
-            Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
+            ITariff tariff = database.tarriffFor(customer);
 
             BigDecimal cost = calculateCost(call, tariff);
             totalBill = totalBill.add(cost);

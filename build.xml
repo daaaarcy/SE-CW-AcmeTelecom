@@ -24,15 +24,18 @@
 
 	<path id="compile.classpath.acceptance-tests">
 		<fileset dir="lib" />
-		<pathelement location="src.jar" />
+		<pathelement location="build/src.jar" />
 	</path>
 
 	<path id="run.classpath.acceptance-tests">
-		<pathelement location="acceptance-tests.jar" />
+		<pathelement location="build/acceptance-tests.jar" />
 		<path refid="compile.classpath.acceptance-tests" />
 	</path>
 	
-	<target name="test" description="Run all tests" depends="unittest, acceptancetest" />
+	<target name="test" description="Run all tests" depends="unittest, acceptancetest">
+		<fail if="junit.failure" message="Unit test(s) failed."/>
+		<fail if="fit.failure" message="${fit.failure} acceptance test(s) failed."/>
+	</target>
 	
 	<target name="unittest" description="Run the JUnit Tests" depends="build">
 		<echo>Running Tests...</echo>
@@ -46,11 +49,10 @@
 	  		    </fileset>
 			</batchtest>
 	  	</junit>
-		<fail if="junit.failure" message="Unit test(s) failed."/>
 	</target>
 	
 	<target name="acceptancetest" description='Run the FIT tests' depends="jars">
-		<java classname="fitlibrary.runner.FolderRunner" classpathref="run.classpath.acceptance-tests" failonerror='true'>
+		<java classname="fitlibrary.runner.FolderRunner" classpathref="run.classpath.acceptance-tests" resultproperty='fit.failure'>
 			<arg value="fit" />
 			<arg value="reports" />
 		</java>
@@ -69,11 +71,8 @@
 	</target>
 	
 	<target name="clean" description="Removes previous build">
-	  	<delete verbose="true">
-	    	<fileset dir="${build}"/>
-	  	</delete>
-		<delete dir="build" />
-		<delete dir="reports" />
+		<delete quiet='true' dir="build" />
+		<delete quiet='true' dir="reports" />
 	</target>
 	
 	<target name="jars">
@@ -89,7 +88,7 @@
 
 			<javac srcdir="@{name}" destdir="build/classes/@{name}" debug="${debug}" classpathref="compile.classpath.@{name}" />
 
-			<jar jarfile="@{name}.jar">
+			<jar jarfile="build/@{name}.jar">
 				<fileset dir="build/classes/@{name}" />
 				<fileset dir="@{name}" />
 			</jar>

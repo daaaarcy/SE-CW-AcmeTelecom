@@ -2,7 +2,7 @@ package com.acmetelecom.util;
 
 import com.acmetelecom.Call;
 import com.acmetelecom.DaytimePeakPeriod;
-import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.database.ITariff;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ public class Calculator
     /**
      * Calculates the cost of the call under the given tariff.
      */
-    public static BigDecimal calculateCost(Call call, Tariff tariff)
+    public static BigDecimal calculateCost(Call call, ITariff tariff)
     {
         final DateTime callStart = new DateTime(call.startTime());
         final DateTime callEnd = new DateTime(call.endTime());
