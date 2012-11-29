@@ -8,9 +8,12 @@
 *.so
 # these files should be auto generated
 reports/*
-#idea files#
+#ide files#
 .idea/*
 *.iml
+.classpath
+.metadata/*
+.project
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
