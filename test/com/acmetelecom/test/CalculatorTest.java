@@ -46,8 +46,9 @@ public class CalculatorTest {
         	if(customer.getPhoneNumber().equalsIgnoreCase("447777765432")){
         		ITariff tariff = db.tarriffFor(customer);
         		double cost = calculateCost(calls.get(0), tariff).doubleValue();
-        		double expected = 2.0*tariff.offPeakRate().doubleValue() + 12.0*tariff.peakRate().doubleValue();
-        		
+        		double expected = 2.0*3600*tariff.offPeakRate().doubleValue() + 12.0*3600*tariff.peakRate().doubleValue();
+        		System.out.println(cost);
+        		System.out.println(expected);
         		assertEquals(expected, cost, EPSILON);
         		break;
         	}
