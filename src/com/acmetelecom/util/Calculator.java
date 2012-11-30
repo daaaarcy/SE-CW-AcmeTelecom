@@ -8,6 +8,9 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Calculator for call cost.
+ */
 public class Calculator
 {
     private static final int secondsInADay = 86400;
@@ -35,7 +38,7 @@ public class Calculator
 
             if (fromCallStartToPeakStart < totalCallDuration)
             {
-                int d = totalCallDuration - fromCallStartToPeakStart;
+                final int d = totalCallDuration - fromCallStartToPeakStart;
                 peakCallDuration = Math.min(DaytimePeakPeriod.peakDurationInSec(), d);
             }
         }
@@ -65,9 +68,9 @@ public class Calculator
             }
         }
 
-        BigDecimal peakCost = new BigDecimal(peakCallDuration).multiply(tariff.peakRate());
-        BigDecimal offPeakCost = new BigDecimal(totalCallDuration - peakCallDuration).multiply(tariff.offPeakRate());
-        BigDecimal cost = peakCost.add(offPeakCost).setScale(0, RoundingMode.HALF_UP);
+        final BigDecimal peakCost = new BigDecimal(peakCallDuration).multiply(tariff.peakRate());
+        final BigDecimal offPeakCost = new BigDecimal(totalCallDuration - peakCallDuration).multiply(tariff.offPeakRate());
+        final BigDecimal cost = peakCost.add(offPeakCost).setScale(0, RoundingMode.HALF_UP);
 
         return cost;
     }

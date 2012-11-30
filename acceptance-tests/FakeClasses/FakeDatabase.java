@@ -33,4 +33,9 @@ public class FakeDatabase implements ICentralDatabase {
 		
 		return null;
 	}
+	
+	public void clearDB() {
+		customers.clear();
+		tariffMap.clear();
+	}
 }
