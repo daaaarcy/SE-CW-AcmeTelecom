@@ -29,160 +29,53 @@ public class CalculatorTest
     @Test
     public void testForCalls0()
     {
-        TestClock clock = new TestClock(2012, 1, 1);
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        clock.incrementTime(6, 0, 0);
-        /*Peak time between 7 & 19*/
-        // 30 min off peak to peak border call - 6:00 to 20:00
-        customerEvents.add(new CallStart("447777765432", "447711111111", clock));
-        clock.incrementTime(14, 0, 0);
-        customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
-
-        CentralDatabase db = new CentralDatabase();
-        List<ICustomer> customers = db.getCustomers();
-        List<Call> calls = mergeCallEvents(customerEvents);
-
-        for (ICustomer customer : customers)
-        {
-            if (customer.getPhoneNumber().equalsIgnoreCase("447777765432"))
-            {
-                ITariff tariff = db.tarriffFor(customer);
-                double cost = calculateCost(calls.get(0), tariff).doubleValue();
-                double expected = 2.0 * 3600 * tariff.offPeakRate().doubleValue() + 12.0 * 3600 * tariff.peakRate().doubleValue();
-                assertEquals(expected, cost, EPSILON);
-                break;
-            }
-        }
-
+        //6:00 to 20:00
+        checkForCost(6, 14, 2, 12);
     }
 
 
     @Test
     public void testForCalls1()
     {
-        TestClock clock = new TestClock(2012, 1, 1);
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        clock.incrementTime(7, 0, 0);
-        /*Peak time between 7 & 19*/
-        // 30 min off peak to peak border call - 7:00 to 19:00
-        customerEvents.add(new CallStart("447777765432", "447711111111", clock));
-        clock.incrementTime(12, 0, 0);
-        customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
-
-        CentralDatabase db = new CentralDatabase();
-        List<ICustomer> customers = db.getCustomers();
-        List<Call> calls = mergeCallEvents(customerEvents);
-
-        for (ICustomer customer : customers)
-        {
-            if (customer.getPhoneNumber().equalsIgnoreCase("447777765432"))
-            {
-                ITariff tariff = db.tarriffFor(customer);
-                double cost = calculateCost(calls.get(0), tariff).doubleValue();
-                double expected = 12 * 3600 * tariff.peakRate().doubleValue();
-                assertEquals(expected, cost, EPSILON);
-                break;
-            }
-        }
+        //7:00 to 19:00
+        checkForCost(7, 12, 0, 12);
     }
 
     @Test
     public void testForCalls2()
     {
-        TestClock clock = new TestClock(2012, 1, 1);
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        clock.incrementTime(9, 0, 0);
-        /*Peak time between 7 & 19*/
-        // 30 min off peak to peak border call - 9:00 to 15:00
-        customerEvents.add(new CallStart("447777765432", "447711111111", clock));
-        clock.incrementTime(6, 0, 0);
-        customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
-
-        CentralDatabase db = new CentralDatabase();
-        List<ICustomer> customers = db.getCustomers();
-        List<Call> calls = mergeCallEvents(customerEvents);
-
-        for (ICustomer customer : customers)
-        {
-            if (customer.getPhoneNumber().equalsIgnoreCase("447777765432"))
-            {
-                ITariff tariff = db.tarriffFor(customer);
-                double cost = calculateCost(calls.get(0), tariff).doubleValue();
-                double expected = 6 * 3600 * tariff.peakRate().doubleValue();
-                assertEquals(expected, cost, EPSILON);
-                break;
-            }
-        }
+        //9:00 to 15:00
+        checkForCost(9, 6, 0, 6);
     }
 
     @Test
     public void testForCalls3()
     {
-        TestClock clock = new TestClock(2012, 1, 1);
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        clock.incrementTime(9, 0, 0);
-        /*Peak time between 7 & 19*/
-        // 30 min off peak to peak border call - 9:00 to 20:00
-        customerEvents.add(new CallStart("447777765432", "447711111111", clock));
-        clock.incrementTime(11, 0, 0);
-        customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
-
-        CentralDatabase db = new CentralDatabase();
-        List<ICustomer> customers = db.getCustomers();
-        List<Call> calls = mergeCallEvents(customerEvents);
-
-        for (ICustomer customer : customers)
-        {
-            if (customer.getPhoneNumber().equalsIgnoreCase("447777765432"))
-            {
-                ITariff tariff = db.tarriffFor(customer);
-                double cost = calculateCost(calls.get(0), tariff).doubleValue();
-                double expected = 3600 * tariff.offPeakRate().doubleValue() + 10 * 3600 * tariff.peakRate().doubleValue();
-                assertEquals(expected, cost, EPSILON);
-                break;
-            }
-        }
+        //9:00 to 20:00
+        checkForCost(9, 11, 1, 10);
     }
 
     @Test
     public void testForCalls4()
     {
-        TestClock clock = new TestClock(2012, 1, 1);
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        clock.incrementTime(9, 0, 0);
-        /*Peak time between 7 & 19*/
-        // 30 min off peak to peak border call - 9:00 to 6:00
-        customerEvents.add(new CallStart("447777765432", "447711111111", clock));
-        clock.incrementTime(21, 0, 0);
-        customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
-
-        CentralDatabase db = new CentralDatabase();
-        List<ICustomer> customers = db.getCustomers();
-        List<Call> calls = mergeCallEvents(customerEvents);
-
-        for (ICustomer customer : customers)
-        {
-            if (customer.getPhoneNumber().equalsIgnoreCase("447777765432"))
-            {
-                ITariff tariff = db.tarriffFor(customer);
-                double cost = calculateCost(calls.get(0), tariff).doubleValue();
-                double expected = 11 * 3600 * tariff.offPeakRate().doubleValue() + 10 * 3600 * tariff.peakRate().doubleValue();
-                assertEquals(expected, cost, EPSILON);
-                break;
-            }
-        }
+        //9:00 to 6:00
+        checkForCost(9, 21, 11, 10);
     }
 
     @Test
     public void testForCalls5()
     {
+        //9:00 to 8:00
+        checkForCost(9,23,12,11);
+    }
+    
+    private void checkForCost(int startTime, int duration, int offPeakTime, int peakTime){
         TestClock clock = new TestClock(2012, 1, 1);
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        clock.incrementTime(9, 0, 0);
+        clock.incrementTime(startTime, 0, 0);
         /*Peak time between 7 & 19*/
-        // 30 min off peak to peak border call - 9:00 to 8:00
         customerEvents.add(new CallStart("447777765432", "447711111111", clock));
-        clock.incrementTime(23, 0, 0);
+        clock.incrementTime(duration, 0, 0);
         customerEvents.add(new CallEnd("447777765432", "447711111111", clock));
 
         CentralDatabase db = new CentralDatabase();
@@ -195,11 +88,11 @@ public class CalculatorTest
             {
                 ITariff tariff = db.tarriffFor(customer);
                 double cost = calculateCost(calls.get(0), tariff).doubleValue();
-                double expected = 12 * 3600 * tariff.offPeakRate().doubleValue() + 11 * 3600 * tariff.peakRate().doubleValue();
+                double expected = offPeakTime * 3600 * tariff.offPeakRate().doubleValue() + peakTime * 3600 * tariff.peakRate().doubleValue();
                 assertEquals(expected, cost, EPSILON);
                 break;
             }
-        }
+        }    	
     }
 
 }
