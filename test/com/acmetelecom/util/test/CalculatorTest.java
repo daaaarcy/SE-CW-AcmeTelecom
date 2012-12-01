@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.acmetelecom.test;
+package com.acmetelecom.util.test;
 
 import com.acmetelecom.Call;
 import com.acmetelecom.CallEnd;
@@ -10,6 +10,8 @@ import com.acmetelecom.CallStart;
 import com.acmetelecom.database.CentralDatabase;
 import com.acmetelecom.database.ICustomer;
 import com.acmetelecom.database.ITariff;
+import com.acmetelecom.test.TestClock;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
