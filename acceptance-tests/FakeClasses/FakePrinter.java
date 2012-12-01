@@ -1,5 +1,10 @@
 package FakeClasses;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import com.acmetelecom.Printer;
+import java.text.ParseException;
+import java.util.Date;
 
 
 public class FakePrinter implements Printer {
@@ -14,7 +19,18 @@ public class FakePrinter implements Printer {
 	@Override
 	public void printItem(String time, String callee, String duration,
 			String cost) {
-		output.append("Call to " + callee + " at " + time.split("\\s")[1] + " for " +  duration + " = " + cost + "\n");
+		Date date;
+		DateFormat dateFormat = SimpleDateFormat.getInstance();
+		
+		try {
+			date = dateFormat.parse(time);
+		} catch (ParseException ex) {
+			throw new IllegalArgumentException("Date string \"" + time + "\" was not in default date format");
+		}
+		
+		SimpleDateFormat dateFormat24H = new SimpleDateFormat("HH:mm");
+		
+		output.append("Call to " + callee + " at " + dateFormat24H.format(date) + " for " +  duration + " = " + cost + "\n");
 	}
 
 	@Override

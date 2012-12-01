@@ -34,7 +34,7 @@
 	
 	<target name="test" description="Run all tests" depends="unittest, acceptancetest">
 		<fail if="junit.failure" message="Unit test(s) failed."/>
-		<fail if="fit.failure" message="${fit.failure} acceptance test(s) failed."/>
+		<fail if="fit.failure > 0" message="${fit.failure} acceptance test(s) failed."/>
 	</target>
 	
 	<target name="unittest" description="Run the JUnit Tests" depends="build">
