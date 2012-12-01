@@ -51,7 +51,7 @@ public class Calculator
 
             peakCallDuration = fromCallStartToPeakEnd;
 
-            if (callEndInSeconds >= callStartInSeconds)
+            if (callEndInSeconds > callStartInSeconds)
             {
                 if (fromCallEndToPeakEnd >= 0)
                 {
