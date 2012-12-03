@@ -1,4 +1,4 @@
-package com.acmetelecom.util;
+package com.acmetelecom.calc;
 
 import com.acmetelecom.Call;
 import com.acmetelecom.DaytimePeakPeriod;
@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 /**
  * Calculator for call cost.
  */
-public class Calculator
+public class NewCalculator implements ICalculator
 {
     private static final int secondsInADay = 86400;
     private static final int secondsInAnHour = 3600;
@@ -19,7 +19,7 @@ public class Calculator
     /**
      * Calculates the cost of the call under the given tariff.
      */
-    public static BigDecimal calculateCost(Call call, ITariff tariff)
+    public BigDecimal calculateCost(Call call, ITariff tariff)
     {
         final DateTime callStart = new DateTime(call.startTime());
         final DateTime callEnd = new DateTime(call.endTime());

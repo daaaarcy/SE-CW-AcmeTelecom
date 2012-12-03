@@ -7,17 +7,17 @@ import com.acmetelecom.Call;
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.CallEvent;
 import com.acmetelecom.CallStart;
+import com.acmetelecom.calc.ICalculator;
+import com.acmetelecom.calc.NewCalculator;
 import com.acmetelecom.database.CentralDatabase;
 import com.acmetelecom.database.ICustomer;
 import com.acmetelecom.database.ITariff;
 import com.acmetelecom.test.TestClock;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.acmetelecom.util.Calculator.calculateCost;
 import static com.acmetelecom.util.CallMerger.mergeCallEvents;
 import static org.junit.Assert.assertEquals;
 
@@ -230,12 +230,14 @@ public class CalculatorTest
         List<ICustomer> customers = db.getCustomers();
         List<Call> calls = mergeCallEvents(customerEvents);
 
+        ICalculator calculator = new NewCalculator();
+
         for (ICustomer customer : customers)
         {
             if (customer.getPhoneNumber().equalsIgnoreCase("447777765432"))
             {
                 ITariff tariff = db.tarriffFor(customer);
-                double cost = calculateCost(calls.get(0), tariff).doubleValue();
+                double cost = calculator.calculateCost(calls.get(0), tariff).doubleValue();
                 double expected = offPeakTime * 3600 * tariff.offPeakRate().doubleValue() + peakTime * 3600 * tariff.peakRate().doubleValue();
                 assertEquals(expected, cost, EPSILON);
                 break;
