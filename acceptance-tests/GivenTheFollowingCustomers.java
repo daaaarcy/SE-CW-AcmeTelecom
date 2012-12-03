@@ -16,6 +16,5 @@ public class GivenTheFollowingCustomers extends ColumnFixture {
 	public void execute() {
 		FakeCustomer cust = new FakeCustomer(Number, "Tom He", Tariff);
 		SystemUnderTest.db.addCustomer(cust);
-		SystemUnderTest.db.setTariff(cust, SystemUnderTest.tariffMap.get(Tariff));
 	}
 }

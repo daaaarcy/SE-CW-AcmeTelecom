@@ -19,19 +19,13 @@ public class FakeDatabase implements ICentralDatabase {
 		customers.add(customer);
 	}
 	
-	public void setTariff(ICustomer customer, ITariff tariff) {
-		tariffMap.put(customer.getPhoneNumber(), tariff);
+	public void addTariff(String tariffName, ITariff tariff) {
+		tariffMap.put(tariffName, tariff);
 	}
 
 	@Override
 	public ITariff tarriffFor(ICustomer customer) {
-		for (ICustomer c : customers) {
-			if (c.getPhoneNumber().equals(customer.getPhoneNumber())) {
-				return tariffMap.get(customer.getPhoneNumber());
-			}
-		}
-		
-		return null;
+		return tariffMap.get(customer.getPricePlan());
 	}
 	
 	public void clearDB() {

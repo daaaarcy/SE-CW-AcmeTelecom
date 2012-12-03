@@ -18,7 +18,7 @@ public class GivenTheFollowingTariff extends ColumnFixture {
 
 	@Override
 	public void execute() {
-		SystemUnderTest.tariffMap.put(Name, new FakeTariff(OnPeakPrice, OffPeakPrice));
+		SystemUnderTest.db.addTariff(Name, new FakeTariff(Name, OnPeakPrice, OffPeakPrice));
 	}
 
     @Override

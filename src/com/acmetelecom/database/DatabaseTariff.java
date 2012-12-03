@@ -21,4 +21,9 @@ public class DatabaseTariff implements ITariff {
 		return tariff.peakRate();
 	}
 
+	@Override
+	public String name() {
+		return tariff.name();
+	}
+
 }
