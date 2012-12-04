@@ -51,10 +51,19 @@ public class BillingSystem
 
     public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db)
     {
+        this(clock,generator,db,new NewCalculator());
+    }
+
+    public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db, ICalculator calculator)
+    {
         this.clock = clock;
         this.generator = generator;
         this.database = db;
-        calculator = new NewCalculator();
+        this.calculator = calculator;
+    }
+
+    public void setCalculator(ICalculator calculator){
+        this.calculator = calculator;
     }
 
     public void callInitiated(String caller, String callee)
