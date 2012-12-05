@@ -7,8 +7,8 @@ import com.acmetelecom.Call;
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.CallEvent;
 import com.acmetelecom.CallStart;
+import com.acmetelecom.calc.ChargeByTimeCalculator;
 import com.acmetelecom.calc.ICalculator;
-import com.acmetelecom.calc.NewCalculator;
 import com.acmetelecom.database.CentralDatabase;
 import com.acmetelecom.database.ICustomer;
 import com.acmetelecom.database.ITariff;
@@ -230,7 +230,7 @@ public class CalculatorTest
         List<ICustomer> customers = db.getCustomers();
         List<Call> calls = mergeCallEvents(customerEvents);
 
-        ICalculator calculator = new NewCalculator();
+        ICalculator calculator = new ChargeByTimeCalculator();
 
         for (ICustomer customer : customers)
         {

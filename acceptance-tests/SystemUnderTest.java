@@ -3,7 +3,6 @@ import FakeClasses.FakePrinter;
 
 import com.acmetelecom.BillGenerator;
 import com.acmetelecom.BillingSystem;
-import com.acmetelecom.calc.NewCalculator;
 import com.acmetelecom.test.TestClock;
 
 /**

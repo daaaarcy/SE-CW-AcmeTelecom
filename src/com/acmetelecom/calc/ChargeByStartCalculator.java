@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * Time: 17:26
  * To change this template use File | Settings | File Templates.
  */
-public class OldCalculator implements ICalculator {
+public class ChargeByStartCalculator implements ICalculator {
 
 
     @Override

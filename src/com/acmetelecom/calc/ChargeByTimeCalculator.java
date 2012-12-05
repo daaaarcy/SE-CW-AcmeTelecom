@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 /**
  * Calculator for call cost.
  */
-public class NewCalculator implements ICalculator
+public class ChargeByTimeCalculator implements ICalculator
 {
     private static final int secondsInADay = 86400;
     private static final int secondsInAnHour = 3600;

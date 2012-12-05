@@ -1,7 +1,7 @@
 package com.acmetelecom;
 
+import com.acmetelecom.calc.ChargeByTimeCalculator;
 import com.acmetelecom.calc.ICalculator;
-import com.acmetelecom.calc.NewCalculator;
 import com.acmetelecom.database.CentralDatabase;
 import com.acmetelecom.database.ICentralDatabase;
 import com.acmetelecom.database.ICustomer;
@@ -51,7 +51,7 @@ public class BillingSystem
 
     public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db)
     {
-        this(clock,generator,db,new NewCalculator());
+        this(clock,generator,db,new ChargeByTimeCalculator());
     }
 
     public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db, ICalculator calculator)
