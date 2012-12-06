@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * Calculator for call cost.
+ * New calculator for call cost, fairer than the previous one.
  */
 public class ChargeByTimeCalculator implements ICalculator
 {

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author farhanrahman
  */
-public class CalculatorTest
+public class ChargeByTimeCalculatorTest
 {
     private static final double EPSILON = 0.001;
 
