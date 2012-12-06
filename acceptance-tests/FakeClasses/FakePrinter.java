@@ -1,32 +1,37 @@
 package FakeClasses;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import com.acmetelecom.Printer;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class FakePrinter implements Printer {
+public class FakePrinter implements Printer
+{
 
     private StringBuilder output = new StringBuilder();
 
     @Override
-    public void printHeading(String name, String phoneNumber, String pricePlan) {
+    public void printHeading(String name, String phoneNumber, String pricePlan)
+    {
         output.append("Customer: " + phoneNumber + "\n");
     }
 
     @Override
     public void printItem(String time, String callee, String duration,
-                          String cost) {
+                          String cost)
+    {
         Date date;
         DateFormat dateFormat = SimpleDateFormat.getInstance();
 
-        try {
+        try
+        {
             date = dateFormat.parse(time);
-        } catch (ParseException ex) {
+        }
+        catch (ParseException ex)
+        {
             throw new IllegalArgumentException("Date string \"" + time + "\" was not in default date format");
         }
 
@@ -36,15 +41,18 @@ public class FakePrinter implements Printer {
     }
 
     @Override
-    public void printTotal(String total) {
+    public void printTotal(String total)
+    {
         output.append("Total Charge = " + total + "\n");
     }
 
-    public String output() {
+    public String output()
+    {
         return output.toString();
     }
 
-    public void clearOutput() {
+    public void clearOutput()
+    {
         output = new StringBuilder();
     }
 

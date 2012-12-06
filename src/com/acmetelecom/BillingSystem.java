@@ -51,7 +51,7 @@ public class BillingSystem
 
     public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db)
     {
-        this(clock,generator,db,new ChargeByTimeCalculator());
+        this(clock, generator, db, new ChargeByTimeCalculator());
     }
 
     public BillingSystem(Clock clock, IBillGenerator<LineItem> generator, ICentralDatabase db, ICalculator calculator)
@@ -62,7 +62,8 @@ public class BillingSystem
         this.calculator = calculator;
     }
 
-    public void setCalculator(ICalculator calculator){
+    public void setCalculator(ICalculator calculator)
+    {
         this.calculator = calculator;
     }
 

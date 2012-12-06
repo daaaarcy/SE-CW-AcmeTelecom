@@ -1,6 +1,7 @@
 import fit.ColumnFixture;
 
-public class GivenTheFollowingCalls extends ColumnFixture {
+public class GivenTheFollowingCalls extends ColumnFixture
+{
 
     public String Caller;
     public String Callee;
@@ -8,7 +9,8 @@ public class GivenTheFollowingCalls extends ColumnFixture {
     public String Duration;
 
     @Override
-    public void reset() throws Exception {
+    public void reset() throws Exception
+    {
         Caller = null;
         Callee = null;
         Start = null;
@@ -16,11 +18,13 @@ public class GivenTheFollowingCalls extends ColumnFixture {
     }
 
     @Override
-    public void execute() {
+    public void execute()
+    {
         addCall(Caller, Callee, Start, Duration);
     }
 
-    public void addCall(String caller, String callee, String start, String duration) {
+    public void addCall(String caller, String callee, String start, String duration)
+    {
         String startString[] = start.trim().split(":");
         String durationString[] = duration.split(":");
 

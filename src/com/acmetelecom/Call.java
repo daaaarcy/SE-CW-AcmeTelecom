@@ -3,40 +3,49 @@ package com.acmetelecom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Call {
+public class Call
+{
     private CallEvent start;
     private CallEvent end;
 
-    public Call(CallEvent start, CallEvent end) {
+    public Call(CallEvent start, CallEvent end)
+    {
         this.start = start;
         this.end = end;
     }
 
-    public String callee() {
+    public String callee()
+    {
         return start.getCallee();
     }
 
-    public int durationSeconds() {
+    public int durationSeconds()
+    {
         return (int) (((end.time() - start.time()) / 1000));
     }
 
-    public String date() {
+    public String date()
+    {
         return SimpleDateFormat.getInstance().format(new Date(start.time()));
     }
 
-    public Date startTime() {
+    public Date startTime()
+    {
         return new Date(start.time());
     }
 
-    public Date endTime() {
+    public Date endTime()
+    {
         return new Date(end.time());
     }
-    
-    public final CallEvent getStart(){
-    	return start;
+
+    public final CallEvent getStart()
+    {
+        return start;
     }
-    
-    public final CallEvent getEnd(){
-    	return end;
-    } 
+
+    public final CallEvent getEnd()
+    {
+        return end;
+    }
 }

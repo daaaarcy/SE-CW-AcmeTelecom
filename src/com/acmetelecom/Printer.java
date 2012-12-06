@@ -1,6 +1,7 @@
 package com.acmetelecom;
 
-public interface Printer {
+public interface Printer
+{
 
     void printHeading(String name, String phoneNumber, String pricePlan);
 

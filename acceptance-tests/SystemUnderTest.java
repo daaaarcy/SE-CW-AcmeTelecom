@@ -1,6 +1,5 @@
 import FakeClasses.FakeDatabase;
 import FakeClasses.FakePrinter;
-
 import com.acmetelecom.BillGenerator;
 import com.acmetelecom.BillingSystem;
 import com.acmetelecom.test.TestClock;
@@ -12,7 +11,8 @@ import com.acmetelecom.test.TestClock;
  * Time: 11:21
  * To change this template use File | Settings | File Templates.
  */
-public class SystemUnderTest {
+public class SystemUnderTest
+{
     private static final int fakeday = 15;
     private static final int fakemonth = 6;
     private static final int fakeyear = 2012;
